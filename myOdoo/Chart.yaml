@@ -1,6 +1,6 @@
 apiVersion: v2
 name: myOdoo
-description: A Helm chart for Kubernetes to required to finish "Computación en la nube con virtualización liviana" course.
+description: A Helm chart for Kubernetes required to finish "Computacion en la nube con virtualización liviana" course.
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,4 +21,4 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "1.16.0"
+appVersion: "1.00.0"
