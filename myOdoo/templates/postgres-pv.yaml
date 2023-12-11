@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume # Create a PV
 metadata:
-  name: postgre-pv-volume # Sets PV's name
+  name: {{.Values.postgres.pv.name}} # Sets PV's name
   labels:
-    type: local # Sets PV's type to local
+    type: {{.Values.postgres.pv.type}} # Sets PV's type to local
     app: postgres
 spec:
-  storageClassName: manual
+  storageClassName: {{.Values.postgres.pv.storageClassName}}
   capacity:
-    storage: 10Gi # Sets PV Volume
+    storage: {{.Values.postgres.pv.storage}} # Sets PV Volume
   accessModes:
-    - ReadWriteMany
+    - {{.Values.postgres.pv.accessMode}}
   hostPath:
-    path: "/mnt/data" # Sets the volume's path
+    path: {{.Values.postgres.pv.hostPath}} # Sets the volume's path

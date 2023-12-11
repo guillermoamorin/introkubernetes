@@ -3,7 +3,34 @@
 # Declare variables to be passed into your templates.
 
 postgres:
-  config_map_name: postgres-config
-  postgres_db: postgresdb
-  postgres_user: odoo
-  postgress_pass: odoo
+  config:
+    name : postgres-config
+    db : postgresdb
+    user : odoo
+    pass : odoo
+  pv:
+    name : postgre-pv-volume
+    type : local
+    storageClassName : manual
+    storage : 10Gi
+    accessMode : "ReadWriteMany"
+    hostPath : "/mnt/data"
+  pvc:
+    name : postgres-pv-claim
+    storageClassName : manual
+    accessModes : "ReadWriteMany"
+    storage : 10Gi
+  deployment:
+    name : postgres
+    replicas : 1
+    container:
+      name : postgres
+      image : postgres:15
+      imagePullPolicy : "IfNotPresent"
+      containerPort : 5432
+      configMapRefName : postgres-config
+      volumeMountPath : "/var/lib/postgresql/data"
+      volumeName : postgredb
+    volume:
+      name : postgredb
+      claimName : postgres-pv-claim
