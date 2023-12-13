@@ -37,3 +37,42 @@ postgres:
     name : postgres
     port : 5432
     targetPort : 5432
+odoo:
+  config:
+    name: odoo-config
+    host: postgres
+    user: odoo
+    password: odoo
+  pv:
+    name : odoo-pv-volume
+    type : local
+    storageClassName : manual
+    storage : 10Gi
+    accessMode : ReadWriteMany
+    hostPath : "/mnt/odoo"
+  pvc:
+    name : odoo-pv-claim
+    storageClassName : manual
+    accessModes : ReadWriteMany
+    storage : 10Gi
+  deployment:
+    name: odoo
+    replicas: 1
+    containers:
+      name: odoo
+      image: odoo:16.0
+      imagePullPolicy: "IfNotPresent"
+      containerPort: 8096
+      configMapRefName: odoo-config
+      args: ["--log-level=info", "--db-filter=.*"]
+      volumeName:  odoo
+      volumeMountPath: /var/lib/odoo
+    volumes:
+      name: odoo
+  service:
+    name: odoo
+    type: LoadBalancer
+    protocol: TCP
+    port: 8069
+    targetPort: 8069
+    nodePort: 30300

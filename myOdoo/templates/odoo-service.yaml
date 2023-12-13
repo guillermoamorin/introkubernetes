@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{.Values.odoo.service.name}}
+  labels:
+    app: odoo
+spec:
+  type: {{.Values.odoo.service.type}}
+  selector:
+    app: odoo
+  ports:
+    - protocol: {{.Values.odoo.service.protocol}}
+      port: {{.Values.odoo.service.port}}
+      targetPort: {{.Values.odoo.service.targetPort}}
+      nodePort: {{.Values.odoo.service.nodePort}}
