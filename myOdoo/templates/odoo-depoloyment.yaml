@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.odoo.deployment.name}}
+spec:
+  replicas: {{.Values.odoo.deployment.name}}
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      containers:
+        - name: {{.Values.odoo.deployment.containers.name}}
+          image: {{.Values.odoo.deployment.containers.image}}
+          imagePullPolicy: {{.Values.odoo.deployment.containers.imagePullPolicy}}
+          ports:
+          - containerPort: {{.Values.odoo.deployment.containers.containerPort}}
+          envFrom:
+            - configMapRef:
+                name: {{.Values.odoo.deployment.containers.configMapRefName}}
+          args: {{.Values.odoo.deployment.containers.args}}
+          volumeMounts:
+            - name:  {{.Values.odoo.deployment.containers.volumeName}}
+              mountPath:  {{.Values.odoo.deployment.containers.volumeMountPath}}
+      initContainers: #we need to init the container and change permissions for /var/lib/odoo, because if not, odoo can not writ the local files.
+        - name: odoo-permissions
+          image: debian:bullseye-slim
+          command: ["chown", "101:101", "-R", "/var/lib/odoo"]
+          volumeMounts:
+            - name:  {{.Values.odoo.deployment.containers.volumeName}}
+              mountPath:  {{.Values.odoo.deployment.containers.volumeMountPath}}
+      volumes:
+        - name:  {{.Values.odoo.deployment.containers.volumeName}}
+          persistentVolumeClaim:
+            claimName: {{.Values.odoo.pvc.name}}
