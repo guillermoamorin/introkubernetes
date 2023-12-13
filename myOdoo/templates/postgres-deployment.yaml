@@ -27,4 +27,4 @@ spec:
       volumes:
         - name: {{.Values.postgres.deployment.volume.name}}
           persistentVolumeClaim:
-            claimName: {{.Values.postgres.deployment.volume.claimName}}
+            claimName: {{.Values.postgres.pvc.name}}

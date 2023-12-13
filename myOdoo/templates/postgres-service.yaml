@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.postgres.service.name}} # Sets service name
+  labels:
+    app: postgres # Labels and Selectors
+spec:
+  #type: NodePort # Sets service type
+  ports:
+    - port: {{.Values.postgres.service.port}} # Sets port to run the postgres application
+      targetPort: {{.Values.postgres.service.targetPort}}
+  selector:
+    app: postgres

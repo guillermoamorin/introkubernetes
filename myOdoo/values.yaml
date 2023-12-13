@@ -33,4 +33,7 @@ postgres:
       volumeName : postgredb
     volume:
       name : postgredb
-      claimName : postgres-pv-claim
+  service:
+    name : postgres
+    port : 5432
+    targetPort : 5432
