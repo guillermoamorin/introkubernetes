@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{.Values.odoo.pv.name}}
+  labels:
+    type: {{.Values.odoo.pv.type}}
+    app: odoo
+spec:
+  storageClassName: {{.Values.odoo.pv.storageClassName}}
+  capacity:
+    storage: {{.Values.odoo.pv.storage}}
+  accessModes:
+    - {{.Values.odoo.pv.accessMode}}
+  hostPath:
+    path: {{.Values.odoo.pv.hostPath}}
