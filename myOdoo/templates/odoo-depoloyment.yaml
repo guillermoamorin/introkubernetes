@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{.Values.odoo.deployment.name}}
 spec:
-  replicas: {{.Values.odoo.deployment.name}}
+  replicas: {{.Values.odoo.deployment.replicas}}
   selector:
     matchLabels:
       app: odoo
@@ -21,7 +21,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{.Values.odoo.deployment.containers.configMapRefName}}
-          args: {{.Values.odoo.deployment.containers.args}}
+          args: ["--log-level=info", "--db-filter=.*"]
           volumeMounts:
             - name:  {{.Values.odoo.deployment.containers.volumeName}}
               mountPath:  {{.Values.odoo.deployment.containers.volumeMountPath}}

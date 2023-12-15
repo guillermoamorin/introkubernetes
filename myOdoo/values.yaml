@@ -64,7 +64,6 @@ odoo:
       imagePullPolicy: "IfNotPresent"
       containerPort: 8096
       configMapRefName: odoo-config
-      args: ["--log-level=info", "--db-filter=.*"]
       volumeName:  odoo
       volumeMountPath: /var/lib/odoo
     volumes:
