@@ -22,7 +22,7 @@ postgres:
     storage : 10Gi
   deployment:
     name : postgres
-    replicas : 2
+    replicas : 1
     container:
       name : postgres
       image : postgres:15
@@ -57,7 +57,7 @@ odoo:
     storage : 10Gi
   deployment:
     name: odoo
-    replicas: 1
+    replicas: 2
     containers:
       name: odoo
       image: odoo:16.0
